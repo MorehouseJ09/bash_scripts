@@ -11,7 +11,7 @@ for i in application/controllers application/views application/models applicatio
 				if [[ "$result" != "No syntax"* ]];
 					then
 						echo -e "$result \n"
-						counter++
+						let counter+=1
 				fi
 			done
 		done
