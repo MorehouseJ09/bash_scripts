@@ -7,9 +7,10 @@
 
 counter=0 #count the files changed
 
-username="Default"
-password="Default"
-password_1="Default"
+username="orehousej09"
+username_1="orehouseJ09"
+password="oeller12"
+password_1="rojans2013"
 
 repo="${HOME}/Documents/github/bash_scripts"
 directory="${HOME}/Documents/general_development/helper_programs/bash_scripts"
@@ -44,7 +45,8 @@ for file in ${files}
 	done
 
 # NOW DO A GREP REPLACE ON ALL FILES -- WANT TO HIDE ANY PASSWORDS
-files=`find ${repo} -type f` #find files
+cd ${repo}
+files=`ls` #find files
 
 for file in ${files}
 	do
@@ -54,9 +56,20 @@ for file in ${files}
 		# sed grabs from the file into the stream. Converts it with case-insensitive (I), globally (g), use e for multiple commands
 		# note the two different passwords -- they are the variables at the top 
 		# mac osx doesn't support -i flag for sed so used the [] to grab all first characters. 
-		sed -e "s/[a-zA-Z]${username}/${default_username}/g" -e "s/[a-zA-Z]${password}/${default_password}/g" -e "s/[a-zA-Z]${password_1}/${default_password}/g" $file > /tmp/tempfile.tmp
+		sed -e "s/[a-zA-Z]${username_1}/${default_username}/g" -e "s/[a-zA-Z]${username}/${default_username}/g" -e "s/[a-zA-Z]${password}/${default_password}/g" -e "s/[a-zA-Z]${password_1}/${default_password}/g" $file > /tmp/tempfile.tmp
 		
 		# move the tempfile back to the original file -- remember that sed only takes it to the stream!
 		mv /tmp/tempfile.tmp $file
 
 	done
+	
+# UPDATE GITHUB
+
+cd ${repo}
+git add *
+
+echo "Please input a commit message"
+read message
+
+git commit -m "${message}"
+git push -u origin master
