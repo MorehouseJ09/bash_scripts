@@ -66,7 +66,7 @@ directory="${HOME}/Documents/production_development/${project}/current"
 project="${HOME}/Documents/production_development/${project}/current/${project}" 
 
 folders=$(find  ${directory} -maxdepth 1 -type d)
-static="${HOME}/Documents/production_development/${project}/current/static"
+static="${HOME}/Documents/production_development/${project_name}/current/static"
 
 
 ################### COPY FILES BETWEEN DIRECTORIES AND REPO DIRECTORY ##########
