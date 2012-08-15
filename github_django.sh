@@ -65,26 +65,51 @@ directory="${HOME}/Documents/production_development/${project}/current"
 # THE PROJECT DIRECTORY ONLY -- NO NEED TO BACK UP -- HAS PERSONAL SETTINGS
 project="${HOME}/Documents/production_development/${project}/current/${project}" 
 
-folders=$(find  ${directory} -maxdepth 1 -type d)
+# folders=$(find  ${directory} -maxdepth 1 -type d)
 static="${HOME}/Documents/production_development/${project_name}/current/static"
-
+templates="${HOME}/Documents/production_development/${project_name}/current/templates"
 
 ################### COPY FILES BETWEEN DIRECTORIES AND REPO DIRECTORY ##########
 
 
 # COPY THE FOLDERS TO THE APP REPO!
 # this section is responsible for determining whether or not the directory is an app or not and copying that to the proper directory in github/django etc
+cd $directory
+folders=$(ls -d */)
 for i in ${folders}
 	do
-		if [[ "$static" != "$i" && "$project" != "$i" && "$directory" != "$i" ]]; then
-			cp -r "${i}" "${app_repo}"
+		source="${directory}/${i}"
+		destination="${app_repo}/${i}"
+		
+		if [[ "${i}" != "templates/" && "${i}" != "${project_name}/" && "${i}" != "static/" ]]; then
+			if [ -d "$destination" ]; then
+				rm -rf $destination
+			fi
+			
+			mkdir $destination
+			cp -r $source $destination
 		fi
+
+			# echo "${i}"
+			# cp -r "${i}" "${app_repo}"
 	done
 
 
 # NOW COPY THE ACTUAL PROJECT TO ITS PROPER GITHUB_REPO!
-cp -r "${directory}/" "${project_repo}/"
+cd $directory
+folders=$(ls -d */)
+for i in ${folders}
+	do
+		source="${directory}/${i}"
+		destination="${project_repo}/${i}"
 
+		if [ -d "$destination" ]; then
+			rm -rf $destination
+		fi
+		
+		mkdir $destination
+		cp -r $source $destination
+	done
 
 # ########################## CLEAN FILES BEFORE GOING TO GITHUB #############
 # NEXT -- NEED TO REMOVE ANY IMPORTANT INFORMATION FOR SAFETY!
@@ -127,7 +152,7 @@ commit ()
 	echo -e "\n\nPlease input a commit message for ${1}"
 	read message
 
-	git commit -m "${message}"
+	git commit -am "${message}"
 	git push -u origin master
 	
 	echo -e "${1} Updated successfully \n\t"
