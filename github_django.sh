@@ -130,7 +130,7 @@ commit ()
 	git commit -m "${message}"
 	git push -u origin master
 	
-	echo "${1} Updated successfully \n\t"
+	echo -e "${1} Updated successfully \n\t"
 }
 
 # run git command for the project
