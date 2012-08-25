@@ -45,12 +45,52 @@ for image in $images
 		if [ $flag == true ]; then
 		
 			counter=$((counter + 1))
-			sips -s format "$new_extension" "$image" --out "${counter}.${new_extension}" #convert the image
-			rm "${image}"
-			
+			new_file_name="${counter}.${new_extension}"
+			sips -s format "$new_extension" "$image" --out "$new_file_name"
+
+			if [[ "$new_file_name" != "$image" ]]; then #make sure that the files don't have the same name
+				
+				rm "$image"
+				
+			fi
 		fi
+
 	done
 
 
+
+# VERSION 2.0 -- add capability to resize images
+
+dimension="Width"
+
+if [[ "${#2}" > 0 ]]; then #should be a number
+	
+	pixels=${2} #number of pixels to set each too
+	
+	if [[ "${#3}" > 0 ]]; then #we are assuming they want to specify x/y
+		
+		input=${3}
+		
+		
+		if [[ "${input}" == "height" || "${input}" == "Height" ]]; then
+			
+			dimension="Height"
+			
+		fi #end of valid dimension input
+	fi #end of dimension input
+	
+	for image in ${images}
+		
+		do
+
+			if [[ "${image#*.}" == "$new_extension" ]]; then
+				
+				sips "--resample${dimension}" "$pixels" "$image"
+				
+			fi
+			
+		done
+		
+fi #end of resize if
 
 
