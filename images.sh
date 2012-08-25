@@ -61,6 +61,11 @@ for image in $images
 
 # VERSION 2.0 -- add capability to resize images
 
+# 1.) get the pixels and initiate this only if they are input
+# 2.) Check to see whether or not they specified height
+# 3.) Go through and loop through all imagesi n the directory
+# 4.) do the conversion
+
 dimension="Width"
 
 if [[ "${#2}" > 0 ]]; then #should be a number
@@ -88,9 +93,7 @@ if [[ "${#2}" > 0 ]]; then #should be a number
 				sips "--resample${dimension}" "$pixels" "$image"
 				
 			fi
-			
 		done
-		
 fi #end of resize if
 
 
