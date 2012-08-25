@@ -46,6 +46,8 @@ if [ "`echo "${name}" | tail -c 5`" != ".mp3" ]; then
 	name="${name}.mp3"
 fi
 
+echo "${name}"
+
 # final file name
 file_name="${folder}${name}"
 
