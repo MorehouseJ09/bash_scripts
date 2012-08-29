@@ -81,7 +81,7 @@ for i in ${folders}
 		source="${directory}/${i}"
 		destination="${app_repo}/${i}"
 		
-		if [[ "${i}" != "templates/" && "${i}" != "${project_name}/" && "${i}" != "static/" ]]; then
+		if [[ "${i}" != "templates/" && "${i}" != "${project_name}/" && "${i}" != "static/" && "${i}" != "media/" ]]; then
 			if [ -d "$destination" ]; then
 				rm -rf $destination
 			fi
@@ -102,13 +102,17 @@ for i in ${folders}
 	do
 		source="${directory}/${i}"
 		destination="${project_repo}/${i}"
-
-		if [ -d "$destination" ]; then
-			rm -rf $destination
-		fi
 		
-		mkdir $destination
-		cp -r $source $destination
+		if [[ "${i}" != "media/" ]]; then
+
+			if [ -d "$destination" ]; then
+				rm -rf $destination
+			fi
+
+			mkdir $destination
+			cp -r $source $destination
+			
+		fi
 	done
 
 # ########################## CLEAN FILES BEFORE GOING TO GITHUB #############
@@ -125,7 +129,7 @@ cleanse ()
 					default_username="Username"
 					default_password="Password"
 					
-					if [[ "${file}" != *.pyc ]]; then
+					if [[ "${file}" != *.pyc && "${file}" != *__init__.py && "${file}" != *.png && "${file}" != *.jpg && "${file}" != .jpeg  && "${file}" != *.gif && "${file}" != *.ttf ]]; then
 						sed -e "s/[a-zA-Z]${username}/${default_username}/g" -e "s/[a-zA-Z]${username_1}/${default_username}/g" -e "s/[a-zA-Z]${password}/${default_password}/g" -e "s/[a-zA-Z]${password_1}/${default_password}/g" "${file}" > /tmp/django.tmp
 						mv /tmp/django.tmp $file
 					fi
