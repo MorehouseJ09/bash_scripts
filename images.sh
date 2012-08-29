@@ -7,7 +7,6 @@
 # 5.) LIst all images in the current directory into a variable
 # 6.) Loop variable and convert each image
 
-
 new_extension="png" #default png type
 
 if [[ ${#1} > 0 ]]; then #the user has specified a particular image format
@@ -21,6 +20,7 @@ image_extensions[0]="png"
 image_extensions[1]="jpg"
 image_extensions[2]="jpeg"
 image_extensions[3]="gif"
+image_extensions[4]="psd"
 
 images=$(ls)
 counter=0
