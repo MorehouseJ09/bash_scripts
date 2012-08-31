@@ -17,6 +17,8 @@ programs[2]="Google Chrome"
 programs[3]="Safari"
 programs[4]="iTunes"
 programs[5]="Preview"
+programs[6]="Firefox"
+programs[7]="Activity Monitor"
 
 
 function to_lower {
@@ -40,10 +42,16 @@ for program in "${programs[@]}"
 		if [[ "$clean_program" == "$clean_option" || "$clean_option" == "all" ]]; then #remember that the clean option is what the user puts in
 			
 			exists=$(pidof "$program")
-
+			
+			if [[ "$clean_program" == "adobe photoshop cs5" ]]; then
+				
+				kill `pidof Photoshop`
+				
+			fi
+			
 			if [[ "${#exists}" > 0  ]]; then
 				
-				kill `pidof "$program"`
+				kill `pidof $program`
 				echo -e "$program was terminated"
 			fi
 		fi
