@@ -7,5 +7,5 @@ if [[ ${#1} -eq 0 ]]; then
 
 fi
 
-git filter-branch --index-filter "git rm --force --cached --ignore-unmatch ${1}" \
+git filter-branch -f --index-filter "git rm --force --cached --ignore-unmatch ${1}" \
   --prune-empty --tag-name-filter cat -- --all
