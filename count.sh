@@ -38,8 +38,8 @@ codeigniter ()
 	directory[1]="application/controllers/"
 	directory[2]="application/models/"
 	directory[3]="application/views/"
-	directory[4]="resources/javascript/local/"
-	directory[5]="resources/javascript/live/"
+	directory[4]="resources/javascript/modules/"
+	directory[5]="resources/javascript/local/"
 	directory[6]="resources/css/live/"
 	directory[7]="resources/css/local/"
 
